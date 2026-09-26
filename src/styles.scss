@@ -1,0 +1,42 @@
+@import '@angular/material/prebuilt-themes/azure-blue.css';
+
+:root {
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  font-family: 'Outfit', 'Segoe UI', sans-serif;
+  color: #f4f1ea;
+  background:
+    radial-gradient(circle at top left, rgba(255, 138, 76, 0.18), transparent 32%),
+    radial-gradient(circle at top right, rgba(88, 101, 242, 0.2), transparent 28%),
+    #090b14;
+}
+
+.mat-mdc-form-field {
+  --mdc-outlined-text-field-outline-color: rgba(255, 255, 255, 0.18);
+  --mdc-outlined-text-field-focus-outline-color: #ffd67a;
+}
+
+.toast-ok {
+  --mdc-snackbar-container-color: #1f5130;
+}
+
+.toast-err {
+  --mdc-snackbar-container-color: #6b1f2a;
+}
+
+button.mat-mdc-unelevated-button {
+  --mdc-filled-button-container-color: #e8b15a;
+  --mdc-filled-button-label-text-color: #1a1208;
+}

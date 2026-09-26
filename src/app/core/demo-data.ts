@@ -1,0 +1,90 @@
+import { RecommendationResponse, WatchlistItem } from './models';
+
+export const DEMO_RECOMMENDATION: RecommendationResponse = {
+  weather: {
+    city: 'São Paulo',
+    country: 'BR',
+    temperature_c: 16.4,
+    description: 'chuva moderada',
+    main: 'Rain',
+    icon: '10d',
+  },
+  mapped_genres: ['Terror', 'Thriller', 'Drama'],
+  movies: [
+    {
+      tmdb_id: 27205,
+      title: 'A Origem',
+      overview: 'Um ladrão que invade sonhos recebe a missão impossível de plantar uma ideia.',
+      poster_url: 'https://image.tmdb.org/t/p/w500/9gk7adHYeDvHkCSEqAvQNLV5Uge.jpg',
+      genres: ['Ação', 'Ficção científica', 'Drama'],
+      vote_average: 8.4,
+    },
+    {
+      tmdb_id: 155,
+      title: 'Batman: O Cavaleiro das Trevas',
+      overview: 'Batman enfrenta o Coringa em uma Gotham à beira do caos.',
+      poster_url: 'https://image.tmdb.org/t/p/w500/qJ2tW6WMUDux911r6m7haRef0WH.jpg',
+      genres: ['Ação', 'Crime', 'Drama'],
+      vote_average: 8.5,
+    },
+    {
+      tmdb_id: 496243,
+      title: 'Parasita',
+      overview: 'Duas famílias de classes opostas se entrelaçam até o ponto de ruptura.',
+      poster_url: 'https://image.tmdb.org/t/p/w500/7IiTTgloJzvGI1TAYymCfbfl3vT.jpg',
+      genres: ['Drama', 'Thriller'],
+      vote_average: 8.5,
+    },
+    {
+      tmdb_id: 680,
+      title: 'Pulp Fiction',
+      overview: 'Histórias cruzadas de crime, acaso e redenção em Los Angeles.',
+      poster_url: 'https://image.tmdb.org/t/p/w500/d5iIlFn5s0ImszYzBPb8JPIfbXD.jpg',
+      genres: ['Thriller', 'Crime'],
+      vote_average: 8.5,
+    },
+    {
+      tmdb_id: 278,
+      title: 'Um Sonho de Liberdade',
+      overview: 'A amizade e a esperança sobrevivem entre os muros de Shawshank.',
+      poster_url: 'https://image.tmdb.org/t/p/w500/q6y0Go1tsGEsmtFryDOJo3dEmqu.jpg',
+      genres: ['Drama'],
+      vote_average: 8.7,
+    },
+    {
+      tmdb_id: 424,
+      title: 'A Lista de Schindler',
+      overview: 'Um industrial arrisca tudo para salvar vidas durante o Holocausto.',
+      poster_url: 'https://image.tmdb.org/t/p/w500/sF1U4EUQS8YHUYjNl3pMGNIQyr0.jpg',
+      genres: ['Drama', 'História'],
+      vote_average: 8.6,
+    },
+  ],
+};
+
+export const DEMO_WATCHLIST: WatchlistItem[] = [
+  {
+    id: 1,
+    tmdb_id: 496243,
+    title: 'Parasita',
+    poster_url: 'https://image.tmdb.org/t/p/w500/7IiTTgloJzvGI1TAYymCfbfl3vT.jpg',
+    genre: 'Drama, Thriller',
+    status: 'quero_assistir',
+    rating: null,
+    weather_label: 'chuva moderada',
+    city: 'São Paulo',
+    created_at: '2026-09-12T14:00:00',
+  },
+  {
+    id: 2,
+    tmdb_id: 27205,
+    title: 'A Origem',
+    poster_url: 'https://image.tmdb.org/t/p/w500/9gk7adHYeDvHkCSEqAvQNLV5Uge.jpg',
+    genre: 'Ação, Drama',
+    status: 'assistido',
+    rating: 9,
+    weather_label: 'nublado',
+    city: 'Curitiba',
+    created_at: '2026-09-10T21:00:00',
+  },
+];

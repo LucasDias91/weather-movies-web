@@ -1,0 +1,84 @@
+<section class="page">
+  @if (demoMode()) {
+    <div class="banner">Protótipo em modo demonstração — a API própria não respondeu.</div>
+  }
+
+  <div class="search-card">
+    <div>
+      <p class="eyebrow">O que o céu pede hoje</p>
+      <h1>Indicação de filme pelo clima</h1>
+    </div>
+    <form class="search" (ngSubmit)="loadByCity()">
+      <mat-form-field appearance="outline" class="city-field">
+        <mat-label>Cidade</mat-label>
+        <input matInput name="city" [(ngModel)]="city" placeholder="São Paulo" />
+      </mat-form-field>
+      <button mat-flat-button color="primary" type="submit" [disabled]="loading()">
+        Buscar
+      </button>
+      <button mat-stroked-button type="button" class="ghost" (click)="useLocation()" [disabled]="loading()">
+        Minha localização
+      </button>
+    </form>
+  </div>
+
+  @if (loading()) {
+    <div class="loading">
+      <mat-progress-spinner diameter="42" mode="indeterminate" />
+      <span>Consultando o clima e montando a sessão...</span>
+    </div>
+  }
+
+  @if (!loading() && data(); as rec) {
+    <article class="weather">
+      <img [src]="weatherIcon(rec.weather.icon)" [alt]="rec.weather.description" />
+      <div>
+        <h2>{{ rec.weather.city }}@if (rec.weather.country) {, {{ rec.weather.country }}}</h2>
+        <p class="temp">{{ rec.weather.temperature_c | number: '1.0-0' }}°C</p>
+        <p class="desc">{{ rec.weather.description }} · {{ rec.weather.main }}</p>
+      </div>
+      <div class="genres">
+        <span>Gêneros para este tempo</span>
+        <mat-chip-set>
+          @for (genre of rec.mapped_genres; track genre) {
+            <mat-chip>{{ genre }}</mat-chip>
+          }
+        </mat-chip-set>
+      </div>
+    </article>
+
+    <div class="row-head">
+      <h3>Sessão recomendada</h3>
+      <div class="arrows">
+        <button mat-icon-button type="button" (click)="scrollRow(-1)" aria-label="Anterior">‹</button>
+        <button mat-icon-button type="button" (click)="scrollRow(1)" aria-label="Próximo">›</button>
+      </div>
+    </div>
+
+    <div id="movie-row" class="carousel">
+      @for (movie of rec.movies; track movie.tmdb_id) {
+        <article class="poster-card">
+          @if (movie.poster_url) {
+            <img [src]="movie.poster_url" [alt]="movie.title" />
+          } @else {
+            <div class="poster-fallback">{{ movie.title }}</div>
+          }
+          <div class="meta">
+            <h4>{{ movie.title }}</h4>
+            <p>{{ movie.vote_average | number: '1.1-1' }} · {{ movie.genres.join(' · ') }}</p>
+            <button
+              mat-flat-button
+              color="accent"
+              type="button"
+              [disabled]="savingId() === movie.tmdb_id"
+              (click)="save(movie)"
+              matTooltip="POST /api/watchlist"
+            >
+              Salvar na lista
+            </button>
+          </div>
+        </article>
+      }
+    </div>
+  }
+</section>

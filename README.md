@@ -1,0 +1,70 @@
+# Weather Movies — Interface (CineClima)
+
+Front-end **Angular 19** + Angular Material. Recomenda filmes com base no clima e gerencia a watchlist falando **somente** com a API própria (`weather-movies-api`). Não há redirect para OpenWeather ou TMDB.
+
+## Telas do protótipo
+
+- **Hoje** (`/`): cidade ou geolocalização, card do clima, gêneros mapeados e carrossel de filmes. Botão **Salvar na lista** dispara `POST /api/watchlist`.
+- **Minha lista** (`/watchlist`): filtro, ordenação, alteração de status/nota (`PUT`) e remoção (`DELETE`).
+
+Se a API estiver offline, as telas abrem em **modo demonstração** com dados de exemplo para o vídeo/protótipo visual.
+
+## Arquitetura
+
+![Arquitetura CineClima](public/architecture.svg)
+
+```
+Interface (Angular) --REST GET/POST/PUT/DELETE--> API FastAPI
+API FastAPI --HTTP--> OpenWeatherMap (API externa da nota)
+API FastAPI --HTTP--> TMDB (cartazes)
+API FastAPI --> SQLite (watchlist_items)
+```
+
+## API externa documentada (OpenWeatherMap)
+
+A interface **não** chama a OpenWeatherMap. Quem consome e trata os dados é a API própria.
+
+- Serviço: [OpenWeather Current Weather](https://openweathermap.org/current)
+- Licença: uso gratuito com cadastro (Current Weather Data)
+- Cadastro da key: https://home.openweathermap.org/users/sign_up
+- Rota usada pela API: `GET https://api.openweathermap.org/data/2.5/weather`
+
+## Início rápido
+
+Na pasta `weather-movies-web` (Node 18+ / 20 recomendado):
+
+```bash
+npm install
+npm start
+```
+
+Ou `start.bat` no Windows. Abre http://127.0.0.1:4200
+
+O `ng serve` faz proxy de `/api` para `http://127.0.0.1:8000`. Suba a API antes para dados reais.
+
+## Docker Compose
+
+Os dois repositórios devem ficar lado a lado (`weather-movies-web` e `weather-movies-api`). Preencha `weather-movies-api/.env` e, nesta pasta:
+
+```bash
+docker compose up --build
+```
+
+- Front: http://127.0.0.1:4200
+- Swagger da API: http://127.0.0.1:8000/swagger
+
+## Dockerfile isolado
+
+```bash
+npm run build
+docker build -t weather-movies-web .
+docker run --rm -p 4200:80 weather-movies-web
+```
+
+## Estrutura
+
+```
+src/app/core/     HttpClient da API, toasts, modelos
+src/app/pages/    telas Hoje e Minha lista
+public/           architecture.svg (diagrama obrigatório)
+```

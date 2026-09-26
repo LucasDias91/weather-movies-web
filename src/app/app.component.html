@@ -1,0 +1,22 @@
+<div class="app-shell">
+  <header class="topbar">
+    <a class="brand" routerLink="/">
+      <span class="brand-mark">▶</span>
+      <span class="brand-text">
+        CineClima
+        <small>filme certo para o tempo de hoje</small>
+      </span>
+    </a>
+    <nav class="nav">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        Hoje
+      </a>
+      <a routerLink="/watchlist" routerLinkActive="active">
+        Minha lista
+      </a>
+    </nav>
+  </header>
+  <main class="content">
+    <router-outlet />
+  </main>
+</div>

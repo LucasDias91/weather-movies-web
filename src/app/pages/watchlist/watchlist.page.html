@@ -1,0 +1,106 @@
+<section class="page">
+  @if (demoMode()) {
+    <div class="banner">Protótipo: lista de exemplo para mostrar PUT e DELETE. Salve um filme em Hoje para gravar na API.</div>
+  }
+
+  <header class="head">
+    <div>
+      <p class="eyebrow">Watchlist</p>
+      <h1>Minha lista</h1>
+      <p class="muted">{{ total() }} filme(s) · GET / POST / PUT / DELETE</p>
+    </div>
+    <div class="filters">
+      <button
+        mat-stroked-button
+        type="button"
+        [class.on]="statusFilter === ''"
+        (click)="setFilter('')"
+      >
+        Todos
+      </button>
+      <button
+        mat-stroked-button
+        type="button"
+        [class.on]="statusFilter === 'quero_assistir'"
+        (click)="setFilter('quero_assistir')"
+      >
+        Quero assistir
+      </button>
+      <button
+        mat-stroked-button
+        type="button"
+        [class.on]="statusFilter === 'assistido'"
+        (click)="setFilter('assistido')"
+      >
+        Assistido
+      </button>
+      <mat-form-field appearance="outline" class="sort">
+        <mat-label>Ordenar</mat-label>
+        <mat-select [(ngModel)]="sort" (selectionChange)="reload()">
+          <mat-option value="-created_at">Mais recentes</mat-option>
+          <mat-option value="title">Título</mat-option>
+          <mat-option value="-rating">Maior nota</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </header>
+
+  @if (loading()) {
+    <div class="loading">
+      <mat-progress-spinner diameter="42" mode="indeterminate" />
+    </div>
+  } @else if (items().length === 0) {
+    <div class="empty">
+      <p>Nenhum filme na lista. Salve uma recomendação em Hoje.</p>
+      <a mat-flat-button color="primary" routerLink="/">Ver recomendações</a>
+    </div>
+  } @else {
+    <div class="grid">
+      @for (item of items(); track item.id) {
+        <article class="card">
+          @if (item.poster_url) {
+            <img [src]="item.poster_url" [alt]="item.title" />
+          }
+          <div class="body">
+            <h2>{{ item.title }}</h2>
+            <p>{{ item.genre || 'Sem gênero' }}</p>
+            <p class="muted">
+              {{ item.city || '—' }} · {{ item.weather_label || 'clima não informado' }}
+            </p>
+            <mat-form-field appearance="outline">
+              <mat-label>Status</mat-label>
+              <mat-select
+                [ngModel]="item.status"
+                (ngModelChange)="changeStatus(item, $event)"
+                matTooltip="PUT /api/watchlist/{id}"
+              >
+                <mat-option value="quero_assistir">Quero assistir</mat-option>
+                <mat-option value="assistido">Assistido</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Nota</mat-label>
+              <mat-select
+                [ngModel]="item.rating"
+                (ngModelChange)="changeRating(item, $event)"
+              >
+                @for (score of ratings; track score) {
+                  <mat-option [value]="score">{{ score }}</mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+            <button
+              mat-stroked-button
+              color="warn"
+              type="button"
+              (click)="remove(item)"
+              matTooltip="DELETE /api/watchlist/{id}"
+            >
+              Remover
+            </button>
+          </div>
+        </article>
+      }
+    </div>
+  }
+</section>

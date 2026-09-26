@@ -1,0 +1,161 @@
+.page {
+  display: grid;
+  gap: 1.4rem;
+}
+
+.banner {
+  padding: 0.7rem 1rem;
+  border-radius: 0.8rem;
+  background: rgba(255, 214, 122, 0.12);
+  color: #ffe7b0;
+  font-size: 0.9rem;
+}
+
+.search-card,
+.weather {
+  background: rgba(18, 22, 38, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 1.2rem;
+  padding: 1.3rem 1.4rem;
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.72rem;
+  color: #ffd67a;
+  margin: 0 0 0.35rem;
+}
+
+h1 {
+  margin: 0;
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: clamp(1.6rem, 3vw, 2.3rem);
+}
+
+.search {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.ghost {
+  border-color: rgba(255, 214, 122, 0.45) !important;
+  color: #ffe7b0 !important;
+}
+
+.city-field {
+  flex: 1 1 220px;
+}
+
+.loading {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  color: #c9cbd8;
+}
+
+.weather {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 1rem;
+  align-items: center;
+
+  img {
+    width: 84px;
+  }
+
+  h2 {
+    margin: 0;
+    font-size: 1.15rem;
+  }
+}
+
+.temp {
+  margin: 0.15rem 0;
+  font-size: 2.2rem;
+  font-family: 'Fraunces', Georgia, serif;
+}
+
+.desc {
+  margin: 0;
+  color: #b7b9c9;
+  text-transform: capitalize;
+}
+
+.genres span {
+  display: block;
+  font-size: 0.78rem;
+  color: #b7b9c9;
+  margin-bottom: 0.4rem;
+}
+
+.row-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  h3 {
+    margin: 0;
+    font-family: 'Fraunces', Georgia, serif;
+  }
+}
+
+.carousel {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 0.6rem;
+}
+
+.poster-card {
+  flex: 0 0 210px;
+  scroll-snap-align: start;
+  background: #14182b;
+  border-radius: 1rem;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+
+  img,
+  .poster-fallback {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    background: #1d2340;
+  }
+
+  .poster-fallback {
+    display: grid;
+    place-items: center;
+    padding: 1rem;
+    text-align: center;
+  }
+}
+
+.meta {
+  padding: 0.8rem;
+
+  h4 {
+    margin: 0 0 0.3rem;
+    font-size: 1rem;
+  }
+
+  p {
+    margin: 0 0 0.75rem;
+    color: #b7b9c9;
+    font-size: 0.8rem;
+  }
+
+  button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 800px) {
+  .weather {
+    grid-template-columns: 1fr;
+  }
+}
