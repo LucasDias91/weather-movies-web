@@ -1,26 +1,27 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="980" height="420" viewBox="0 0 980 420">
-  <rect width="980" height="420" fill="#0f1324"/>
-  <text x="40" y="48" fill="#ffd67a" font-family="sans-serif" font-size="22">CineClima — Cenário 1.1</text>
-  <rect x="40" y="90" width="200" height="90" rx="14" fill="#1c2340" stroke="#ffd67a"/>
-  <text x="140" y="128" text-anchor="middle" fill="#fff" font-family="sans-serif" font-size="16">Interface</text>
-  <text x="140" y="152" text-anchor="middle" fill="#c9cbd8" font-family="sans-serif" font-size="13">Angular</text>
-  <rect x="340" y="90" width="220" height="90" rx="14" fill="#1c2340" stroke="#8ab4ff"/>
-  <text x="450" y="128" text-anchor="middle" fill="#fff" font-family="sans-serif" font-size="16">API Back-End</text>
-  <text x="450" y="152" text-anchor="middle" fill="#c9cbd8" font-family="sans-serif" font-size="13">FastAPI + SQLite</text>
-  <rect x="700" y="50" width="230" height="70" rx="14" fill="#1c2340" stroke="#7ad1a7"/>
-  <text x="815" y="80" text-anchor="middle" fill="#fff" font-family="sans-serif" font-size="15">OpenWeatherMap</text>
-  <text x="815" y="102" text-anchor="middle" fill="#c9cbd8" font-family="sans-serif" font-size="12">API externa da nota</text>
-  <rect x="700" y="150" width="230" height="70" rx="14" fill="#1c2340" stroke="#7ad1a7"/>
-  <text x="815" y="180" text-anchor="middle" fill="#fff" font-family="sans-serif" font-size="15">TMDB</text>
-  <text x="815" y="202" text-anchor="middle" fill="#c9cbd8" font-family="sans-serif" font-size="12">filmes e cartazes</text>
-  <rect x="340" y="250" width="220" height="70" rx="14" fill="#1c2340" stroke="#c9cbd8"/>
-  <text x="450" y="280" text-anchor="middle" fill="#fff" font-family="sans-serif" font-size="15">watchlist_items</text>
-  <text x="450" y="302" text-anchor="middle" fill="#c9cbd8" font-family="sans-serif" font-size="12">SQLite (create_all)</text>
-  <line x1="240" y1="135" x2="328" y2="135" stroke="#ffd67a" stroke-width="2"/>
-  <polygon points="328,130 340,135 328,140" fill="#ffd67a"/>
-  <text x="290" y="122" text-anchor="middle" fill="#ffd67a" font-size="11" font-family="sans-serif">GET POST PUT DELETE</text>
-  <line x1="560" y1="110" x2="700" y2="85" stroke="#7ad1a7" stroke-width="2"/>
-  <line x1="560" y1="155" x2="700" y2="185" stroke="#7ad1a7" stroke-width="2"/>
-  <line x1="450" y1="180" x2="450" y2="250" stroke="#c9cbd8" stroke-width="2"/>
-  <text x="40" y="370" fill="#b7b9c9" font-family="sans-serif" font-size="13">O Angular não redireciona o usuário para as APIs externas: o FastAPI consome, trata (clima para gênero) e devolve o JSON.</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="380" viewBox="0 0 1040 380">
+  <rect width="1040" height="380" fill="#0f1324"/>
+  <text x="40" y="44" fill="#ffd67a" font-family="sans-serif" font-size="22">Weather Movies — Cenário 1.1</text>
+  <rect x="40" y="100" width="200" height="90" rx="14" fill="#1c2340" stroke="#ffd67a"/>
+  <text x="140" y="138" text-anchor="middle" fill="#fff" font-family="sans-serif" font-size="16">Interface</text>
+  <text x="140" y="162" text-anchor="middle" fill="#c9cbd8" font-family="sans-serif" font-size="13">Angular</text>
+  <rect x="340" y="100" width="220" height="90" rx="14" fill="#1c2340" stroke="#8ab4ff"/>
+  <text x="450" y="138" text-anchor="middle" fill="#fff" font-family="sans-serif" font-size="16">API Back-End</text>
+  <text x="450" y="162" text-anchor="middle" fill="#c9cbd8" font-family="sans-serif" font-size="13">FastAPI</text>
+  <rect x="700" y="28" width="300" height="108" rx="14" fill="#1c2340" stroke="#7ad1a7"/>
+  <text x="850" y="62" text-anchor="middle" fill="#fff" font-family="sans-serif" font-size="15">OpenWeatherMap</text>
+  <text x="850" y="84" text-anchor="middle" fill="#7ad1a7" font-family="sans-serif" font-size="12">API externa</text>
+  <text x="850" y="106" text-anchor="middle" fill="#c9cbd8" font-family="sans-serif" font-size="12">Clima por latitude e longitude</text>
+  <rect x="700" y="156" width="300" height="108" rx="14" fill="#1c2340" stroke="#7ad1a7"/>
+  <text x="850" y="190" text-anchor="middle" fill="#fff" font-family="sans-serif" font-size="15">TMDB</text>
+  <text x="850" y="212" text-anchor="middle" fill="#7ad1a7" font-family="sans-serif" font-size="12">API externa</text>
+  <text x="850" y="234" text-anchor="middle" fill="#c9cbd8" font-family="sans-serif" font-size="12">Filmes e cartazes</text>
+  <rect x="340" y="280" width="220" height="70" rx="14" fill="#1c2340" stroke="#c9cbd8"/>
+  <text x="450" y="310" text-anchor="middle" fill="#fff" font-family="sans-serif" font-size="15">watchlist_items</text>
+  <text x="450" y="332" text-anchor="middle" fill="#c9cbd8" font-family="sans-serif" font-size="12">SQLite</text>
+  <line x1="240" y1="145" x2="328" y2="145" stroke="#ffd67a" stroke-width="2"/>
+  <polygon points="328,140 340,145 328,150" fill="#ffd67a"/>
+  <text x="290" y="132" text-anchor="middle" fill="#ffd67a" font-size="11" font-family="sans-serif">GET POST PUT DELETE</text>
+  <line x1="560" y1="125" x2="700" y2="82" stroke="#7ad1a7" stroke-width="2"/>
+  <line x1="560" y1="165" x2="700" y2="210" stroke="#7ad1a7" stroke-width="2"/>
+  <line x1="450" y1="190" x2="450" y2="280" stroke="#c9cbd8" stroke-width="2"/>
 </svg>

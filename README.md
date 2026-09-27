@@ -1,4 +1,4 @@
-# Weather Movies — Interface (CineClima)
+# Weather Movies — Interface
 
 Front-end **Angular 19** + Angular Material. Recomenda filmes com base no clima e gerencia a watchlist falando **somente** com a API própria (`weather-movies-api`). Não há redirect para OpenWeather ou TMDB.
 
@@ -11,12 +11,12 @@ Se a API estiver offline, as telas abrem em **modo demonstração** com dados de
 
 ## Arquitetura
 
-![Arquitetura CineClima](public/architecture.png)
+![Arquitetura Weather Movies](public/architecture.png)
 
 ```
 Interface (Angular) --REST GET/POST/PUT/DELETE--> API FastAPI
-API FastAPI --HTTP--> OpenWeatherMap (API externa da nota)
-API FastAPI --HTTP--> TMDB (cartazes)
+API FastAPI --HTTP--> OpenWeatherMap (API externa: clima por latitude e longitude)
+API FastAPI --HTTP--> TMDB (API externa: filmes e cartazes)
 API FastAPI --> SQLite (watchlist_items)
 ```
 

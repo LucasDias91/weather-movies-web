@@ -20,6 +20,6 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.brand-text')?.textContent).toContain('CineClima');
+    expect(compiled.querySelector('.brand-text')?.textContent).toContain('Weather Movies');
   });
 });
