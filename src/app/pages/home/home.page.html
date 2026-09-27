@@ -29,10 +29,10 @@
           }
         </mat-autocomplete>
       </mat-form-field>
-      <button mat-flat-button color="primary" type="submit" style="margin-top: -20px;" [disabled]="loading()">
+      <button mat-flat-button color="primary" type="submit" [disabled]="loading()">
         Buscar
       </button>
-      <button mat-stroked-button type="button" class="ghost" style="margin-top: -20px;" (click)="useLocation()" [disabled]="loading()">
+      <button mat-stroked-button type="button" class="ghost" (click)="useLocation()" [disabled]="loading()">
         Minha localização
       </button>
     </form>

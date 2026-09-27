@@ -54,6 +54,10 @@ h1 {
 .city-field {
   flex: 1 1 220px;
   min-width: 0;
+
+  ::ng-deep .mat-mdc-form-field-subscript-wrapper {
+    display: none;
+  }
 }
 
 @media (max-width: 720px) {
@@ -118,6 +122,23 @@ h1 {
   font-size: 0.78rem;
   color: #b7b9c9;
   margin-bottom: 0.4rem;
+}
+
+.genres ::ng-deep .mat-mdc-chip {
+  --mat-chip-label-text-color: #fff;
+  --mat-chip-outline-color: #fff;
+  --mat-chip-disabled-label-text-color: #fff;
+  --mat-chip-disabled-outline-color: #fff;
+  border-color: #fff !important;
+  opacity: 1 !important;
+  color: #fff !important;
+}
+
+.genres ::ng-deep .mdc-evolution-chip__text-label,
+.genres ::ng-deep .mat-mdc-chip-action-label {
+  color: #fff !important;
+  -webkit-text-fill-color: #fff !important;
+  opacity: 1 !important;
 }
 
 .section-title {
