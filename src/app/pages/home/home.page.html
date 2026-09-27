@@ -1,6 +1,6 @@
 <section class="page">
   @if (demoMode()) {
-    <div class="banner">Protótipo em modo demonstração — a API própria não respondeu.</div>
+    <div class="banner">Sem conexão. Mostrando uma sessão de exemplo.</div>
   }
   @if (!loading() && loadError(); as message) {
     <div class="banner error" role="alert">{{ message }}</div>
@@ -29,10 +29,10 @@
           }
         </mat-autocomplete>
       </mat-form-field>
-      <button mat-flat-button color="primary" type="submit" [disabled]="loading()">
+      <button mat-flat-button color="primary" type="submit" style="margin-top: -20px;" [disabled]="loading()">
         Buscar
       </button>
-      <button mat-stroked-button type="button" class="ghost" (click)="useLocation()" [disabled]="loading()">
+      <button mat-stroked-button type="button" class="ghost" style="margin-top: -20px;" (click)="useLocation()" [disabled]="loading()">
         Minha localização
       </button>
     </form>
@@ -51,7 +51,7 @@
       <div>
         <h2>{{ rec.weather.city }}@if (rec.weather.country) {, {{ rec.weather.country }}}</h2>
         <p class="temp">{{ rec.weather.temperature_c | number: '1.0-0' }}°C</p>
-        <p class="desc">{{ rec.weather.description }} · {{ rec.weather.main }}</p>
+        <p class="desc">{{ rec.weather.description }}</p>
         @if (approximateLocation()) {
           <p class="hint">Localização aproximada do navegador. Confira a cidade acima.</p>
         }
@@ -87,7 +87,6 @@
               type="button"
               [disabled]="savingId() === movie.tmdb_id"
               (click)="save(movie)"
-              matTooltip="POST /api/watchlist"
             >
               Salvar na lista
             </button>

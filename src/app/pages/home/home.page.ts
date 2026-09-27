@@ -8,7 +8,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatChipsModule } from '@angular/material/chips';
-import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatAutocompleteModule, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 
 import { ApiService } from '../../core/api.service';
@@ -25,7 +24,6 @@ import { ToastService } from '../../core/toast.service';
     MatInputModule,
     MatProgressSpinnerModule,
     MatChipsModule,
-    MatTooltipModule,
     MatAutocompleteModule,
     DecimalPipe,
   ],
@@ -158,7 +156,7 @@ export class HomePage implements OnInit {
             this.toast.error(detail);
             return;
           }
-          this.toast.info('API offline — o filme foi marcado só neste protótipo.');
+          this.toast.info('Sem conexão. Não deu para salvar agora.');
         },
       });
   }
@@ -223,9 +221,19 @@ export class HomePage implements OnInit {
         this.loadError.set(null);
         this.demoMode.set(true);
         this.data.set(DEMO_RECOMMENDATION);
-        this.toast.info('API offline — mostrando o protótipo com dados de demonstração.');
+        this.toast.info('Sem conexão. Mostrando uma sessão de exemplo.');
       },
     });
+  }
+
+  private friendlyDetail(detail: string): string {
+    if (detail.startsWith('City not found')) {
+      return 'Não encontramos essa cidade.';
+    }
+    if (detail.includes('API key inválida') || detail.startsWith('Missing API key')) {
+      return 'O serviço de clima ou de filmes está sem uma chave válida.';
+    }
+    return detail;
   }
 
   private apiDetail(error: unknown): string | null {
@@ -239,7 +247,7 @@ export class HomePage implements OnInit {
     if (body && typeof body === 'object') {
       const detail = (body as { detail?: unknown }).detail;
       if (typeof detail === 'string' && detail.trim()) {
-        return detail;
+        return this.friendlyDetail(detail);
       }
       if (Array.isArray(detail)) {
         const text = detail
@@ -254,7 +262,7 @@ export class HomePage implements OnInit {
       }
     }
     if (error.status >= 400 && error.status < 500) {
-      return `A API respondeu com erro ${error.status}.`;
+      return 'Não foi possível concluir esta busca.';
     }
     return null;
   }

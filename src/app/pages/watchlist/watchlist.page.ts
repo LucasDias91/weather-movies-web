@@ -6,7 +6,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatChipsModule } from '@angular/material/chips';
-import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { ApiService } from '../../core/api.service';
@@ -22,7 +21,6 @@ import { ToastService } from '../../core/toast.service';
     MatFormFieldModule,
     MatSelectModule,
     MatChipsModule,
-    MatTooltipModule,
     MatProgressSpinnerModule,
     RouterLink,
   ],
@@ -67,7 +65,7 @@ export class WatchlistPage implements OnInit {
         const demo = this.applyLocalFilters(DEMO_WATCHLIST);
         this.items.set(demo);
         this.total.set(demo.length);
-        this.toast.info('API offline — lista de demonstração.');
+        this.toast.info('Sem conexão. Mostrando uma lista de exemplo.');
       });
   }
 
@@ -87,7 +85,7 @@ export class WatchlistPage implements OnInit {
           return;
         }
         this.patch({ ...item, status });
-        this.toast.info('PUT simulado no protótipo (API offline).');
+        this.toast.info('Sem conexão. A alteração ficou só nesta tela.');
       });
   }
 
@@ -102,7 +100,7 @@ export class WatchlistPage implements OnInit {
           return;
         }
         this.patch({ ...item, rating });
-        this.toast.info('PUT simulado no protótipo (API offline).');
+        this.toast.info('Sem conexão. A alteração ficou só nesta tela.');
       });
   }
 
@@ -117,7 +115,7 @@ export class WatchlistPage implements OnInit {
         this.items.update((list) => list.filter((row) => row.id !== item.id));
         this.total.update((value) => Math.max(0, value - 1));
         this.toast.success(
-          ok === false ? 'DELETE simulado no protótipo (API offline).' : `${item.title} removido.`,
+          ok === false ? 'Sem conexão. A remoção ficou só nesta tela.' : `${item.title} removido.`,
         );
       });
   }

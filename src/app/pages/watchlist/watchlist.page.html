@@ -1,13 +1,13 @@
 <section class="page">
   @if (demoMode()) {
-    <div class="banner">Protótipo: lista de exemplo para mostrar PUT e DELETE. Salve um filme em Hoje para gravar na API.</div>
+    <div class="banner">Sem conexão. Esta lista é só um exemplo.</div>
   }
 
   <header class="head">
     <div>
-      <p class="eyebrow">Watchlist</p>
+      <p class="eyebrow">Salvos</p>
       <h1>Minha lista</h1>
-      <p class="muted">{{ total() }} filme(s) · GET / POST / PUT / DELETE</p>
+      <p class="muted">@if (total() === 1) { 1 filme } @else { {{ total() }} filmes }</p>
     </div>
     <div class="filters">
       <button
@@ -74,7 +74,6 @@
               <mat-select
                 [ngModel]="item.status"
                 (ngModelChange)="changeStatus(item, $event)"
-                matTooltip="PUT /api/watchlist/{id}"
               >
                 <mat-option value="quero_assistir">Quero assistir</mat-option>
                 <mat-option value="assistido">Assistido</mat-option>
@@ -96,7 +95,6 @@
               color="warn"
               type="button"
               (click)="remove(item)"
-              matTooltip="DELETE /api/watchlist/{id}"
             >
               Remover
             </button>
