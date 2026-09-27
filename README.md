@@ -11,7 +11,7 @@ Se a API estiver offline, as telas abrem em **modo demonstração** com dados de
 
 ## Arquitetura
 
-![Arquitetura CineClima](public/architecture.svg)
+![Arquitetura CineClima](public/architecture.png)
 
 ```
 Interface (Angular) --REST GET/POST/PUT/DELETE--> API FastAPI
@@ -66,5 +66,5 @@ docker run --rm -p 4200:80 weather-movies-web
 ```
 src/app/core/     HttpClient da API, toasts, modelos
 src/app/pages/    telas Hoje e Minha lista
-public/           architecture.svg (diagrama obrigatório)
+public/           architecture.png (diagrama obrigatório)
 ```
