@@ -16,6 +16,14 @@ export interface MovieCard {
   vote_average: number;
 }
 
+export interface PlaceSuggestion {
+  name: string;
+  state: string | null;
+  country: string | null;
+  lat: number | null;
+  lon: number | null;
+}
+
 export interface RecommendationResponse {
   weather: WeatherInfo;
   mapped_genres: string[];

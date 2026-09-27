@@ -8,10 +8,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatAutocompleteModule, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 
 import { ApiService } from '../../core/api.service';
 import { DEMO_RECOMMENDATION } from '../../core/demo-data';
-import { MovieCard, RecommendationResponse } from '../../core/models';
+import { MovieCard, PlaceSuggestion, RecommendationResponse } from '../../core/models';
 import { ToastService } from '../../core/toast.service';
 
 @Component({
@@ -24,6 +25,7 @@ import { ToastService } from '../../core/toast.service';
     MatProgressSpinnerModule,
     MatChipsModule,
     MatTooltipModule,
+    MatAutocompleteModule,
     DecimalPipe,
   ],
   templateUrl: './home.page.html',
@@ -39,6 +41,11 @@ export class HomePage implements OnInit {
   approximateLocation = signal(false);
   data = signal<RecommendationResponse | null>(null);
   savingId = signal<number | null>(null);
+  places = signal<PlaceSuggestion[]>([]);
+  private suggestTimer: ReturnType<typeof setTimeout> | null = null;
+  private fetchId = 0;
+  private suggestId = 0;
+  private lockedQuery: string | null = null;
 
   ngOnInit(): void {
     this.loadByCity();
@@ -51,7 +58,50 @@ export class HomePage implements OnInit {
       return;
     }
     this.approximateLocation.set(false);
+    this.places.set([]);
+    if (this.lockedQuery && city === this.lockedQuery.split(',')[0]) {
+      this.fetch({ city: this.lockedQuery }, city);
+      return;
+    }
+    this.lockedQuery = null;
     this.fetch({ city });
+  }
+
+  onCityInput(): void {
+    const query = this.city.trim();
+    if (this.lockedQuery && query !== this.lockedQuery.split(',')[0]) {
+      this.lockedQuery = null;
+    }
+    if (this.suggestTimer) {
+      clearTimeout(this.suggestTimer);
+    }
+    if (query.length < 2) {
+      this.places.set([]);
+      return;
+    }
+    this.suggestTimer = setTimeout(() => this.loadSuggestions(query), 300);
+  }
+
+  placeLabel(place: PlaceSuggestion): string {
+    return [place.name, place.state, place.country].filter(Boolean).join(', ');
+  }
+
+  selectPlace(event: MatAutocompleteSelectedEvent): void {
+    const label = String(event.option.value);
+    const place = this.places().find((item) => this.placeLabel(item) === label);
+    if (!place) {
+      return;
+    }
+    const cityQuery = place.state ? `${place.name},${place.state},BR` : place.name;
+    this.lockedQuery = cityQuery;
+    this.city = place.name;
+    this.places.set([]);
+    this.approximateLocation.set(false);
+    if (place.lat != null && place.lon != null) {
+      this.fetch({ lat: place.lat, lon: place.lon }, place.name);
+      return;
+    }
+    this.fetch({ city: cityQuery }, place.name);
   }
 
   useLocation(): void {
@@ -107,17 +157,45 @@ export class HomePage implements OnInit {
       : 'https://openweathermap.org/img/wn/10d@2x.png';
   }
 
-  private fetch(query: { city?: string; lat?: number; lon?: number }): void {
+  private loadSuggestions(query: string): void {
+    const id = ++this.suggestId;
+    this.api
+      .searchPlaces(query)
+      .pipe(catchError(() => of([])))
+      .subscribe((places) => {
+        if (id !== this.suggestId || this.city.trim() !== query) {
+          return;
+        }
+        this.places.set(places);
+      });
+  }
+
+  private fetch(
+    query: { city?: string; lat?: number; lon?: number },
+    displayCity?: string,
+  ): void {
+    const id = ++this.fetchId;
     this.loading.set(true);
     this.api
       .getRecommendations(query)
       .pipe(catchError(() => of(null)))
       .subscribe((response) => {
+        if (id !== this.fetchId) {
+          return;
+        }
         this.loading.set(false);
         if (response) {
           this.demoMode.set(false);
+          if (displayCity) {
+            response = {
+              ...response,
+              weather: { ...response.weather, city: displayCity },
+            };
+            this.city = displayCity;
+          } else {
+            this.city = response.weather.city || this.city;
+          }
           this.data.set(response);
-          this.city = response.weather.city || this.city;
           return;
         }
         this.demoMode.set(true);

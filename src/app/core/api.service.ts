@@ -4,6 +4,7 @@ import { Observable, timeout } from 'rxjs';
 
 import {
   MovieCard,
+  PlaceSuggestion,
   RecommendationResponse,
   WatchlistCreate,
   WatchlistItem,
@@ -31,6 +32,13 @@ export class ApiService {
     return this.http.get<RecommendationResponse>(`${this.base}/recommendations`, { params }).pipe(
       timeout(4000),
     );
+  }
+
+  searchPlaces(query: string): Observable<PlaceSuggestion[]> {
+    const params = new HttpParams().set('q', query);
+    return this.http
+      .get<PlaceSuggestion[]>(`${this.base}/locations`, { params })
+      .pipe(timeout(4000));
   }
 
   getWatchlist(query: {

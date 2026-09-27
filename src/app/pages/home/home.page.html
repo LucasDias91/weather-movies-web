@@ -11,7 +11,20 @@
     <form class="search" (ngSubmit)="loadByCity()">
       <mat-form-field appearance="outline" class="city-field">
         <mat-label>Cidade</mat-label>
-        <input matInput name="city" [(ngModel)]="city" placeholder="São Paulo" />
+        <input
+          matInput
+          name="city"
+          [(ngModel)]="city"
+          [matAutocomplete]="cityAuto"
+          (input)="onCityInput()"
+          placeholder="São Paulo"
+          autocomplete="off"
+        />
+        <mat-autocomplete #cityAuto="matAutocomplete" (optionSelected)="selectPlace($event)">
+          @for (place of places(); track place.lat + ',' + place.lon) {
+            <mat-option [value]="placeLabel(place)">{{ placeLabel(place) }}</mat-option>
+          }
+        </mat-autocomplete>
       </mat-form-field>
       <button mat-flat-button color="primary" type="submit" [disabled]="loading()">
         Buscar
