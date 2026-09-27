@@ -4,7 +4,7 @@ Front-end **Angular 19** + Angular Material. Recomenda filmes com base no clima 
 
 ## Telas do protótipo
 
-- **Hoje** (`/`): cidade ou geolocalização, card do clima, gêneros mapeados e carrossel de filmes. Botão **Salvar na lista** dispara `POST /api/watchlist`.
+- **Hoje** (`/`): cidade ou geolocalização, card do clima, gêneros mapeados e grid de filmes. Botão **Salvar na lista** dispara `POST /api/watchlist`.
 - **Minha lista** (`/watchlist`): filtro, ordenação, alteração de status/nota (`PUT`) e remoção (`DELETE`).
 
 Se a API estiver offline, as telas abrem em **modo demonstração** com dados de exemplo para o vídeo/protótipo visual.

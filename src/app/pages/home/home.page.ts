@@ -164,9 +164,8 @@ export class HomePage implements OnInit {
   }
 
   weatherIcon(icon: string | null): string {
-    return icon
-      ? `https://openweathermap.org/img/wn/${icon}@2x.png`
-      : 'https://openweathermap.org/img/wn/10d@2x.png';
+    const code = icon && /^(01|02|03|04|09|10|11|13|50)[dn]$/.test(icon) ? icon : '10d';
+    return `/api/weather/icons/${code}`;
   }
 
   private loadSuggestions(query: string): void {
