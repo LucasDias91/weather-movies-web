@@ -36,6 +36,9 @@
         <h2>{{ rec.weather.city }}@if (rec.weather.country) {, {{ rec.weather.country }}}</h2>
         <p class="temp">{{ rec.weather.temperature_c | number: '1.0-0' }}°C</p>
         <p class="desc">{{ rec.weather.description }} · {{ rec.weather.main }}</p>
+        @if (approximateLocation()) {
+          <p class="hint">Localização aproximada do navegador. Confira a cidade acima.</p>
+        }
       </div>
       <div class="genres">
         <span>Gêneros para este tempo</span>
@@ -47,16 +50,12 @@
       </div>
     </article>
 
-    <div class="row-head">
-      <h3>Sessão recomendada</h3>
-      <div class="arrows">
-        <button mat-icon-button type="button" (click)="scrollRow(-1)" aria-label="Anterior">‹</button>
-        <button mat-icon-button type="button" (click)="scrollRow(1)" aria-label="Próximo">›</button>
-      </div>
-    </div>
+    <h3 class="section-title">Sessão recomendada</h3>
 
-    <div id="movie-row" class="carousel">
+    <div class="container-fluid px-0">
+    <div class="row g-3">
       @for (movie of rec.movies; track movie.tmdb_id) {
+        <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
         <article class="poster-card">
           @if (movie.poster_url) {
             <img [src]="movie.poster_url" [alt]="movie.title" />
@@ -78,7 +77,9 @@
             </button>
           </div>
         </article>
+        </div>
       }
+    </div>
     </div>
   }
 </section>

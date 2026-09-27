@@ -48,6 +48,23 @@ h1 {
 
 .city-field {
   flex: 1 1 220px;
+  min-width: 0;
+}
+
+@media (max-width: 720px) {
+  .search {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .city-field {
+    flex: 0 0 auto;
+    width: 100%;
+  }
+
+  .search button {
+    width: 100%;
+  }
 }
 
 .loading {
@@ -85,6 +102,12 @@ h1 {
   text-transform: capitalize;
 }
 
+.hint {
+  margin: 0.35rem 0 0;
+  color: #ffe7b0;
+  font-size: 0.85rem;
+}
+
 .genres span {
   display: block;
   font-size: 0.78rem;
@@ -92,28 +115,15 @@ h1 {
   margin-bottom: 0.4rem;
 }
 
-.row-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  h3 {
-    margin: 0;
-    font-family: 'Fraunces', Georgia, serif;
-  }
-}
-
-.carousel {
-  display: flex;
-  gap: 1rem;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  padding-bottom: 0.6rem;
+.section-title {
+  margin: 0;
+  font-family: 'Fraunces', Georgia, serif;
 }
 
 .poster-card {
-  flex: 0 0 210px;
-  scroll-snap-align: start;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
   background: #14182b;
   border-radius: 1rem;
   overflow: hidden;
@@ -136,6 +146,9 @@ h1 {
 }
 
 .meta {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
   padding: 0.8rem;
 
   h4 {
@@ -151,6 +164,7 @@ h1 {
 
   button {
     width: 100%;
+    margin-top: auto;
   }
 }
 

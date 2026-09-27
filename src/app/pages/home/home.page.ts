@@ -36,6 +36,7 @@ export class HomePage implements OnInit {
   city = 'São Paulo';
   loading = signal(false);
   demoMode = signal(false);
+  approximateLocation = signal(false);
   data = signal<RecommendationResponse | null>(null);
   savingId = signal<number | null>(null);
 
@@ -49,6 +50,7 @@ export class HomePage implements OnInit {
       this.toast.error('Informe uma cidade.');
       return;
     }
+    this.approximateLocation.set(false);
     this.fetch({ city });
   }
 
@@ -59,11 +61,21 @@ export class HomePage implements OnInit {
     }
     this.loading.set(true);
     navigator.geolocation.getCurrentPosition(
-      (pos) => this.fetch({ lat: pos.coords.latitude, lon: pos.coords.longitude }),
+      (pos) => {
+        const approximate = pos.coords.accuracy > 3000;
+        this.approximateLocation.set(approximate);
+        this.fetch({ lat: pos.coords.latitude, lon: pos.coords.longitude });
+        if (approximate) {
+          this.toast.info(
+            'O navegador enviou uma localização aproximada. Se a cidade não for a sua, digite o nome e busque de novo.',
+          );
+        }
+      },
       () => {
         this.loading.set(false);
-        this.toast.error('Não foi possível obter a localização.');
+        this.toast.error('Não foi possível obter a localização. Confira a permissão do navegador.');
       },
+      { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 },
     );
   }
 
@@ -93,11 +105,6 @@ export class HomePage implements OnInit {
     return icon
       ? `https://openweathermap.org/img/wn/${icon}@2x.png`
       : 'https://openweathermap.org/img/wn/10d@2x.png';
-  }
-
-  scrollRow(dir: number): void {
-    const el = document.getElementById('movie-row');
-    el?.scrollBy({ left: dir * 320, behavior: 'smooth' });
   }
 
   private fetch(query: { city?: string; lat?: number; lon?: number }): void {

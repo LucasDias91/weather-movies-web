@@ -26,6 +26,28 @@ body {
 .mat-mdc-form-field {
   --mdc-outlined-text-field-outline-color: rgba(255, 255, 255, 0.18);
   --mdc-outlined-text-field-focus-outline-color: #ffd67a;
+  --mdc-outlined-text-field-input-text-color: #fff;
+  --mdc-outlined-text-field-focus-input-text-color: #fff;
+  --mdc-outlined-text-field-label-text-color: #fff;
+  --mdc-outlined-text-field-hover-label-text-color: #fff;
+  --mdc-outlined-text-field-focus-label-text-color: #fff;
+  --mdc-outlined-text-field-caret-color: #fff;
+}
+
+.mat-mdc-form-field .mat-mdc-input-element,
+.mat-mdc-form-field .mdc-text-field__input,
+.mat-mdc-form-field .mat-mdc-select-value,
+.mat-mdc-form-field .mat-mdc-select-value-text,
+.mat-mdc-form-field .mat-mdc-select-min-line,
+.mat-mdc-form-field .mat-mdc-form-field-input-control {
+  color: #fff !important;
+  -webkit-text-fill-color: #fff !important;
+  caret-color: #fff;
+}
+
+.mat-mdc-input-element::placeholder {
+  color: rgba(255, 255, 255, 0.72) !important;
+  -webkit-text-fill-color: rgba(255, 255, 255, 0.72);
 }
 
 .toast-ok {

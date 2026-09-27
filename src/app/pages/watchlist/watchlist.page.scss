@@ -40,6 +40,18 @@ h1 {
   flex-wrap: wrap;
   gap: 0.6rem;
   align-items: center;
+  max-width: 100%;
+}
+
+@media (max-width: 720px) {
+  .head,
+  .filters {
+    width: 100%;
+  }
+
+  .sort {
+    width: 100%;
+  }
 }
 
 .on {
@@ -50,13 +62,8 @@ h1 {
   width: 180px;
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1rem;
-}
-
 .card {
+  height: 100%;
   display: grid;
   grid-template-columns: 110px 1fr;
   background: #14182b;
@@ -68,6 +75,15 @@ h1 {
     width: 110px;
     height: 100%;
     object-fit: cover;
+  }
+
+  @media (max-width: 575.98px) {
+    grid-template-columns: 1fr;
+
+    img {
+      width: 100%;
+      height: 220px;
+    }
   }
 }
 

@@ -55,8 +55,10 @@
       <a mat-flat-button color="primary" routerLink="/">Ver recomendações</a>
     </div>
   } @else {
-    <div class="grid">
+    <div class="container-fluid px-0">
+    <div class="row g-3">
       @for (item of items(); track item.id) {
+        <div class="col-12 col-md-6 col-xl-4">
         <article class="card">
           @if (item.poster_url) {
             <img [src]="item.poster_url" [alt]="item.title" />
@@ -100,7 +102,9 @@
             </button>
           </div>
         </article>
+        </div>
       }
+    </div>
     </div>
   }
 </section>
