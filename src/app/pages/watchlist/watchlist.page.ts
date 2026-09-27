@@ -58,20 +58,16 @@ export class WatchlistPage implements OnInit {
       .subscribe((page) => {
         this.loading.set(false);
         if (page) {
-          if (page.items.length > 0) {
-            this.demoMode.set(false);
-            this.items.set(page.items);
-            this.total.set(page.total);
-            return;
-          }
+          this.demoMode.set(false);
+          this.items.set(page.items);
+          this.total.set(page.total);
+          return;
         }
         this.demoMode.set(true);
         const demo = this.applyLocalFilters(DEMO_WATCHLIST);
         this.items.set(demo);
         this.total.set(demo.length);
-        if (!page) {
-          this.toast.info('API offline — lista de demonstração.');
-        }
+        this.toast.info('API offline — lista de demonstração.');
       });
   }
 
