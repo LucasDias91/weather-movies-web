@@ -2,6 +2,9 @@
   @if (demoMode()) {
     <div class="banner">Protótipo em modo demonstração — a API própria não respondeu.</div>
   }
+  @if (!loading() && loadError(); as message) {
+    <div class="banner error" role="alert">{{ message }}</div>
+  }
 
   <div class="search-card">
     <div>

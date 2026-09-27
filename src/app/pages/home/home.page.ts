@@ -1,7 +1,8 @@
 import { DecimalPipe } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { catchError, of } from 'rxjs';
+import { TimeoutError, catchError, of } from 'rxjs';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -38,6 +39,7 @@ export class HomePage implements OnInit {
   city = 'São Paulo';
   loading = signal(false);
   demoMode = signal(false);
+  loadError = signal<string | null>(null);
   approximateLocation = signal(false);
   data = signal<RecommendationResponse | null>(null);
   savingId = signal<number | null>(null);
@@ -140,14 +142,24 @@ export class HomePage implements OnInit {
           current?.weather.city,
         ),
       )
-      .pipe(catchError(() => of(null)))
-      .subscribe((item) => {
-        this.savingId.set(null);
-        if (item) {
+      .subscribe({
+        next: () => {
+          this.savingId.set(null);
           this.toast.success(`${movie.title} entrou na sua lista.`);
-        } else {
+        },
+        error: (error: unknown) => {
+          this.savingId.set(null);
+          if (error instanceof HttpErrorResponse && error.status === 409) {
+            this.toast.info('Esse filme já está na sua lista.');
+            return;
+          }
+          const detail = this.apiDetail(error);
+          if (detail) {
+            this.toast.error(detail);
+            return;
+          }
           this.toast.info('API offline — o filme foi marcado só neste protótipo.');
-        }
+        },
       });
   }
 
@@ -176,31 +188,75 @@ export class HomePage implements OnInit {
   ): void {
     const id = ++this.fetchId;
     this.loading.set(true);
-    this.api
-      .getRecommendations(query)
-      .pipe(catchError(() => of(null)))
-      .subscribe((response) => {
+    this.loadError.set(null);
+    this.api.getRecommendations(query).subscribe({
+      next: (response) => {
         if (id !== this.fetchId) {
           return;
         }
         this.loading.set(false);
-        if (response) {
-          this.demoMode.set(false);
-          if (displayCity) {
-            response = {
-              ...response,
-              weather: { ...response.weather, city: displayCity },
-            };
-            this.city = displayCity;
-          } else {
-            this.city = response.weather.city || this.city;
-          }
-          this.data.set(response);
+        this.demoMode.set(false);
+        this.loadError.set(null);
+        if (displayCity) {
+          response = {
+            ...response,
+            weather: { ...response.weather, city: displayCity },
+          };
+          this.city = displayCity;
+        } else {
+          this.city = response.weather.city || this.city;
+        }
+        this.data.set(response);
+      },
+      error: (error: unknown) => {
+        if (id !== this.fetchId) {
           return;
         }
+        this.loading.set(false);
+        const detail = this.apiDetail(error);
+        if (detail) {
+          this.demoMode.set(false);
+          this.data.set(null);
+          this.loadError.set(detail);
+          this.toast.error(detail);
+          return;
+        }
+        this.loadError.set(null);
         this.demoMode.set(true);
         this.data.set(DEMO_RECOMMENDATION);
         this.toast.info('API offline — mostrando o protótipo com dados de demonstração.');
-      });
+      },
+    });
+  }
+
+  private apiDetail(error: unknown): string | null {
+    if (error instanceof TimeoutError) {
+      return null;
+    }
+    if (!(error instanceof HttpErrorResponse) || error.status === 0) {
+      return null;
+    }
+    const body = error.error;
+    if (body && typeof body === 'object') {
+      const detail = (body as { detail?: unknown }).detail;
+      if (typeof detail === 'string' && detail.trim()) {
+        return detail;
+      }
+      if (Array.isArray(detail)) {
+        const text = detail
+          .map((item) =>
+            item && typeof item === 'object' && 'msg' in item ? String(item.msg) : '',
+          )
+          .filter(Boolean)
+          .join(' ');
+        if (text) {
+          return text;
+        }
+      }
+    }
+    if (error.status >= 400 && error.status < 500) {
+      return `A API respondeu com erro ${error.status}.`;
+    }
+    return null;
   }
 }

@@ -30,7 +30,7 @@ export class ApiService {
       params = params.set('lat', String(query.lat)).set('lon', String(query.lon));
     }
     return this.http.get<RecommendationResponse>(`${this.base}/recommendations`, { params }).pipe(
-      timeout(4000),
+      timeout(25000),
     );
   }
 
@@ -64,7 +64,7 @@ export class ApiService {
   }
 
   saveMovie(payload: WatchlistCreate): Observable<WatchlistItem> {
-    return this.http.post<WatchlistItem>(`${this.base}/watchlist`, payload).pipe(timeout(4000));
+    return this.http.post<WatchlistItem>(`${this.base}/watchlist`, payload).pipe(timeout(25000));
   }
 
   updateItem(id: number, payload: WatchlistUpdate): Observable<WatchlistItem> {

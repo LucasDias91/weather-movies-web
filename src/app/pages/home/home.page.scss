@@ -11,6 +11,11 @@
   font-size: 0.9rem;
 }
 
+.banner.error {
+  background: rgba(180, 50, 70, 0.22);
+  color: #ffd0d6;
+}
+
 .search-card,
 .weather {
   background: rgba(18, 22, 38, 0.88);
