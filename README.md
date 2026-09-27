@@ -20,14 +20,24 @@ API FastAPI --HTTP--> TMDB (API externa: filmes e cartazes)
 API FastAPI --> SQLite (watchlist_items)
 ```
 
-## API externa documentada (OpenWeatherMap)
+## APIs externas documentadas
 
-A interface **não** chama a OpenWeatherMap. Quem consome e trata os dados é a API própria.
+A interface **não** chama a OpenWeatherMap nem a TMDB. Quem consome e trata os dados é a API própria.
+
+### OpenWeatherMap
 
 - Serviço: [OpenWeather Current Weather](https://openweathermap.org/current)
 - Licença: uso gratuito com cadastro (Current Weather Data)
 - Cadastro da key: https://home.openweathermap.org/users/sign_up
 - Rota usada pela API: `GET https://api.openweathermap.org/data/2.5/weather`
+
+### TMDB
+
+- Serviço: [TMDB API](https://developer.themoviedb.org/docs)
+- Licença: uso gratuito não comercial, com atribuição à TMDB. Uso comercial exige autorização. Termos: https://www.themoviedb.org/api-terms-of-use
+- Cadastro da key: https://www.themoviedb.org/signup e, em seguida, https://www.themoviedb.org/settings/api
+- Rota usada pela API: `GET https://api.themoviedb.org/3/discover/movie`
+- Cartazes: `https://image.tmdb.org/t/p/w500/{poster_path}`
 
 ## Início rápido
 
