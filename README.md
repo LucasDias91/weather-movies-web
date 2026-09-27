@@ -54,7 +54,7 @@ O `ng serve` faz proxy de `/api` para `http://127.0.0.1:8000`. Suba a API antes 
 
 ## Docker Compose
 
-Os dois repositórios devem ficar lado a lado (`weather-movies-web` e `weather-movies-api`). Preencha `weather-movies-api/.env` e, nesta pasta:
+Os dois repositórios devem ficar lado a lado (`weather-movies-web` e `weather-movies-api`). As chaves da entrega já estão na API. Nesta pasta:
 
 ```bash
 docker compose up --build
